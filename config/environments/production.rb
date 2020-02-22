@@ -1,6 +1,10 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  #NECESSARIO PER REDIS ON HEROKU
+  config.web_socket_server_url = "wss://immense-sierra-91111.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://immense-sierra-91111.herokuapp.com', 'http://immense-sierra-91111.herokuapp.com']
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -16,6 +20,28 @@ Rails.application.configure do
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
+
+
+  ########################################
+
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  host = 'immense-sierra-91111.herokuapp.com'
+  config.action_mailer.default_url_options = { host: host }
+  ActionMailer::Base.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+    :port           => '587',
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => 'heroku.com',
+    :enable_starttls_auto => true
+  }
+
+
+
+  ########################################
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.

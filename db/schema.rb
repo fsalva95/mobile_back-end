@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 2020_02_20_120656) do
     t.string "password_digest"
     t.string "address"
     t.string "mobile"
+    t.string "activation_digest"
+    t.boolean "activated", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
