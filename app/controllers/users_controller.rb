@@ -43,6 +43,22 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+    def googlelog
+
+        @user=User.find_by(email: params[:email].downcase)
+        if @user
+            command=JsonWebToken.encode(user_id: @user.id)
+            render json: { auth_token: command }
+
+        else
+            @user= User.create_from_auth(params[:email].downcase,params[:name])
+            command=JsonWebToken.encode(user_id: @user.id)
+            render json: { auth_token: command }
+        end
+
+
+    end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user

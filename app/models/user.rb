@@ -20,6 +20,18 @@ class User < ApplicationRecord
 
 
 
+    def self.create_from_auth(email1,name)
+      where(email: email1).first_or_initialize do |user|
+        user.name = name
+        user.email = email1
+        user.password= User.digest(User.new_token) #get a random password and encrypt
+        user.save!
+        user.activate
+      end
+    end
+
+
+
     def authenticated?(attribute ,token)
         digest = send("#{attribute}_digest")
         return false if digest.nil?
@@ -42,4 +54,6 @@ class User < ApplicationRecord
       def send_activation_email
         UserMailer.account_activation(self).deliver_now
       end
+
+
 end

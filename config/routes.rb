@@ -5,4 +5,5 @@ Rails.application.routes.draw do
    resources :account_activations, only: [:edit]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
     post 'authenticate', to: 'authentication#authenticate'
+    post 'googlelog', to: 'users#googlelog'
 end
