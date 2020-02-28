@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :blacklists
   resources :items
   resources :users
 
@@ -7,4 +8,5 @@ Rails.application.routes.draw do
     post 'authenticate', to: 'authentication#authenticate'
     post 'googlelog', to: 'users#googlelog'
     post 'info', to: 'profile#info'
+    post 'check', to: 'blacklists#check'
 end

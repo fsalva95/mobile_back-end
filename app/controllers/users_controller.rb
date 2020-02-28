@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  skip_before_action :authenticate_request
+  skip_before_action :authenticate_request, only[:create,:googlelog]   #cambiato questo
   wrap_parameters :user, include: [:name,:email,:address,:mobile, :password, :password_confirmation] #importante
 
 
