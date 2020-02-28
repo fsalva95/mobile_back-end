@@ -1,6 +1,7 @@
 class BlacklistsController < ApplicationController
   before_action :set_blacklist, only: [:show, :update, :destroy]
   skip_before_action :authenticate_request, only: [:check]
+  #wrap_parameters :blacklist, include: [:token]
 
   # GET /blacklists
   def index
@@ -40,7 +41,7 @@ class BlacklistsController < ApplicationController
   end
 
   def check
-    @token= Token.find_by(token: params[:token])
+    @token= Blacklist.find_by(token: params[:token])
 
 
     render json: @token
