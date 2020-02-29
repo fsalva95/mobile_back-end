@@ -5,7 +5,13 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
+
     @current_user = AuthorizeApiRequest.call(request.headers).result
     render json: { error: 'Not Authorized' }, status: 401 unless @current_user
+
+    @token = Blacklist.find_by(token: request.headers['Authorization'])
+    if @token
+        render json: { error: 'token expired' }, status: 401
+    end
   end
 end
