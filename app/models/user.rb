@@ -5,6 +5,8 @@ class User < ApplicationRecord
     attr_accessor :activation_token  # aggiunge attributo alla classe Gamer
     before_create :create_activation_digest
 
+    validates :email, uniqueness: true #####################
+
 
         # Returns the hash digest of the given string.
     def User.digest(string)
