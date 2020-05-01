@@ -2,7 +2,7 @@ class User < ApplicationRecord
     has_secure_password
 
 
-    attr_accessor :activation_token  # aggiunge attributo alla classe Gamer
+    attr_accessor :activation_token  # aggiunge attributo alla classe User
     before_create :create_activation_digest
 
     validates :email, uniqueness: true #####################
@@ -37,8 +37,8 @@ class User < ApplicationRecord
     def authenticated?(attribute ,token)
         digest = send("#{attribute}_digest")
         return false if digest.nil?
-        BCrypt::Password.new(digest).is_password?(token)    #remeber_token variabile locale non della classe
-    end   #remeber digest riprende l'attributo interno al db aggiunto
+        BCrypt::Password.new(digest).is_password?(token)
+    end
 
         # Creates and assigns the activation token and digest.
     def create_activation_digest
