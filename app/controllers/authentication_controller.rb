@@ -1,7 +1,7 @@
 class AuthenticationController < ApplicationController
  skip_before_action :authenticate_request
 
- def authenticate  #DA CONTROLLARE CHE FUNZIONA TUTTE LE CONDIZIONI(controllate via localhost)
+ def authenticate
 
 
    @user=User.find_by(email: params[:email].downcase)
